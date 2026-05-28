@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.2] - 2026-05-28
+
+### Release Overview
+- A maintenance release that fixes a startup crash and makes skills visible to the Codex CLI again.
+
+### User-facing
+- **Codex skills are visible again** — Skills now deploy to `~/.codex/skills/`, which is where the Codex CLI actually reads user-level skills. Earlier builds wrote them to `~/.agents/skills/`, so installed skills never showed up in Codex; that path is kept as a discovery fallback so existing installs still surface in the Codex tab (#182).
+- **No more startup crash from stale presets** — Fixed a foreign-key panic that could crash the app on launch when a preset still referenced a skill that had been deleted. Stale memberships are now skipped (and logged) during reindex instead of aborting startup (#170).
+
+### Developer & Governance
+- Sync logging is quieter and more useful: dropped the spurious `package-lock` peer-marker noise and now warns when a stale preset membership is skipped, with a regression test covering memberships that point at a missing skill or preset.
+- Reworked both CHANGELOG files and the release-notes template around three audience-aware sections (Release Overview / User-facing / Developer & Governance), replacing the old Added/Changed/Fixed/Removed split.
+- Release notes are now assembled with auto-injected metadata — release date, the previous-tag→current-tag compare URL, and a verification block — and an awk pass strips any empty section so half-filled entries can't leak placeholder headings.
+
 ## [1.22.1] - 2026-05-22
 
 ### Release Overview
