@@ -52,6 +52,12 @@ jobs:
         uses: swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
         with:
           workspaces: src-tauri
+          # Restore-only: the post-build cache *save* on Windows intermittently
+          # fails (a lingering vctip.exe locks files in target/ while tar/zstd
+          # packs the cache), marking an otherwise-successful release job red.
+          # Release builds run rarely, so skipping the save avoids the false
+          # failure at negligible cost. See v1.22.3 Windows-x64 run.
+          save-if: false
 
       - name: Install Linux system dependencies
         if: matrix.platform == 'ubuntu-22.04'
