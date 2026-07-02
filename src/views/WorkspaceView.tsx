@@ -130,7 +130,7 @@ function WorkspaceSkillCard({
   return (
     <div
       className={cn(
-        "app-panel group relative flex h-full cursor-pointer flex-col overflow-hidden transition-all hover:border-border hover:bg-surface-hover",
+        "app-panel group relative flex min-h-[120px] cursor-pointer flex-col overflow-hidden transition-all hover:border-border hover:bg-surface-hover",
         active && "border-l-2 border-l-accent"
       )}
       onClick={onClick}
@@ -892,7 +892,7 @@ export function WorkspaceView({ config }: { config: WorkspaceConfig }) {
           className={cn(
             "pb-8",
             viewMode === "grid"
-              ? "grid grid-cols-2 gap-3 lg:grid-cols-3"
+              ? "grid auto-rows-fr grid-cols-2 gap-3 lg:grid-cols-3"
               : "flex flex-col gap-0.5"
           )}
         >
